@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Écran Joueur - Mon JDR</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="player-screen">
+        <!-- Left Column - Stats and Resources -->
+        <div class="left-column">
+            <div class="panel player-info">
+                <h2 class="player-name">Nom du Joueur</h2>
+                <div class="level-display">
+                    <span>Niveau: </span>
+                    <div class="level-controls">
+                        <button class="level-decrease">-</button>
+                        <span class="level-value">1</span>
+                        <button class="level-increase">+</button>
+                    </div>
+                </div>
+                <div class="panel xp-display">
+                    <h3>Progression</h3>
+                    <div class="xp-circles">
+                        <div class="xp-circle filled" data-xp="1"></div>
+                        <div class="xp-circle" data-xp="2"></div>
+                        <div class="xp-circle" data-xp="3"></div>
+                        <div class="xp-circle" data-xp="4"></div>
+                        <div class="xp-circle" data-xp="5"></div>
+                    </div>
+                    <div class="xp-text">Niveau <span class="current-level">1</span></div>
+                </div>
+            </div>
+
+            <div class="panel player-stats">
+                <h3>Stats</h3>
+                <div class="stat">
+                    <span class="stat-marker empty">✻</span>
+                    <span class="stat-label">ATQ</span>
+                    <input type="number" class="stat-value" value="10">
+                    <span class="stat-bonus"></span>
+                </div>
+                <div class="stat">
+                    <span class="stat-marker empty">✻</span>
+                    <span class="stat-label">MAG</span>
+                    <input type="number" class="stat-value" value="8">
+                    <span class="stat-bonus"></span>
+                </div>
+                <div class="stat">
+                    <span class="stat-marker empty">✻</span>
+                    <span class="stat-label">DEF</span>
+                    <input type="number" class="stat-value" value="12">
+                    <span class="stat-bonus"></span>
+                </div>
+                <div class="stat">
+                    <span class="stat-marker empty">✻</span>
+                    <span class="stat-label">VIT</span>
+                    <input type="number" class="stat-value" value="14">
+                    <span class="stat-bonus"></span>
+                </div>
+            </div>
+
+            <div class="panel player-resources">
+                <h3>Ressources</h3>
+                <div class="gauge-container">
+                    <div class="gauge-label">
+                        <span>PV</span>
+                        <span>
+                            <input type="number" class="current-hp" value="50">
+                            <span>/</span>
+                            <input type="number" class="max-hp" value="50">
+                        </span>
+                    </div>
+                    <div class="gauge-bar">
+                        <div class="gauge-fill hp-gauge" style="width: 100%"></div>
+                    </div>
+                </div>
+
+                <div class="gauge-container">
+                    <div class="gauge-label">
+                        <span>Mana</span>
+                        <span>
+                            <input type="number" class="current-mp" value="30">
+                            <span>/</span>
+                            <input type="number" class="max-mp" value="30">
+                        </span>
+                    </div>
+                    <div class="gauge-bar">
+                        <div class="gauge-fill mp-gauge" style="width: 100%"></div>
+                    </div>
+                </div>
+
+                <div class="gauge-container">
+                    <div class="gauge-label">
+                        <span>Vitalité</span>
+                        <span>
+                            <input type="number" class="current-vit" value="20" min="0" max="20">
+                        </span>
+                    </div>
+                    <div class="gauge-bar">
+                        <div class="gauge-fill vit-gauge" style="width: 100%"></div>
+                    </div>
+                </div>
+
+                <div class="gauge-container">
+                    <div class="gauge-label">
+                        <span>Altération</span>
+                        <span>
+                            <input type="number" class="current-alt" value="0" min="0">
+                        </span>
+                    </div>
+                    <div class="gauge-bar">
+                        <div class="gauge-fill alt-gauge" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel passion-points">
+                <h3>Points de Passion</h3>
+                <div class="passion-stars" data-pp="0">
+                    <span class="star empty">★</span>
+                    <span class="star empty">★</span>
+                    <span class="star empty">★</span>
+                    <span class="star empty">★</span>
+                    <span class="star empty">★</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center Column - Card Draw System -->
+        <div class="center-column">
+            <div class="panel card-system">
+                <h2>Pioche</h2>
+                <div class="card-controls">
+                    <button class="draw-cards">Piocher 6 cartes</button>
+                    <button class="reshuffle-cards">Remélanger</button>
+                    <button class="draw-one-card">Piocher 1 carte</button>
+                </div>
+                <div class="cards-container">
+                    <!-- Cards will be added here dynamically -->
+                </div>
+                <div class="cards-count">Cartes en main: <span class="cards-amount">0</span>/20</div>
+            </div>
+        </div>
+
+        <!-- Right Column - Abilities and Status -->
+        <div class="right-column">
+            <div class="panel abilities">
+                <h3>Compétences Actives</h3>
+                <div class="ability-controls">
+                    <select class="ability-selector">
+                        <option value="">Choisir une compétence</option>
+                    </select>
+                    <button class="add-ability">Ajouter</button>
+                </div>
+                <div class="ability-list">
+                    <!-- Compétences actives ajoutées ici -->
+                </div>
+            </div>
+
+            <div class="panel passives">
+                <h3>Passifs (3 max)</h3>
+                <div class="passive-controls">
+                    <select class="passive-selector">
+                        <option value="">Choisir un passif</option>
+                    </select>
+                    <button class="add-passive">Ajouter</button>
+                </div>
+                <div class="passive-list">
+                    <!-- Passifs ajoutés ici -->
+                </div>
+            </div>
+
+            <div class="panel ultimates">
+                <h3>Ultime</h3>
+                <div class="ultimate-controls">
+                    <select class="ultimate-selector">
+                        <option value="">Choisir une ultime</option>
+                    </select>
+                    <button class="add-ultimate">Ajouter</button>
+                </div>
+                <div class="ultimate-list">
+                    <!-- Ultime ajoutée ici -->
+                </div>
+            </div>
+
+            <div class="panel status-effects">
+                <h3>Statuts & Cumuls</h3>
+                <div class="status-list">
+                    <!-- Status effects will be added here -->
+                </div>
+                <button class="add-status">+ Ajouter statut</button>
+                <div class="stacks-list">
+                    <!-- Stacks will be added here -->
+                </div>
+                <button class="add-stack">+ Ajouter cumul</button>
+            </div>
+
+            <div class="panel save-system">
+                <h3>Sauvegarde</h3>
+                <button onclick="saveGame()">Sauvegarder</button>
+                <button onclick="loadGame()">Charger</button>
+            </div>
+
+            <div class="panel dice-roller">
+                <h3>Lancer de dé</h3>
+                <button class="roll-d20">D20</button>
+                <div class="dice-result">Résultat: <span class="d20-result">-</span></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
